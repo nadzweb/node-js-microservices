@@ -1,0 +1,21 @@
+{
+  "name": "node-micro-services",
+  "version": "1.0.0",
+  "description": "Node js microservices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:user-service": "node ./microservices/user-service/user.js",
+    "start:project-service": "node ./microservices/project-service/project.js",
+    "start:services": "npm run start:user-service && npm run start:project-service"
+  },
+  "author": "nadzweb.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.17.4"
+  }
+}
