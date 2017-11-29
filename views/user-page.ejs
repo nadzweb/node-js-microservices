@@ -8,42 +8,56 @@
           <%- include('partials/top-nav') %>
           <main role="main" class="inner cover">
             <h3>Users</h3>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Company</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Photo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
+            <div>This data is coming from the URI, <strong>/user-page/api</strong> which is a microservice running at <strong>http://localhost:9001/</strong> </div>
+            <br/><br/>
+            <div id="result"></div>
           </main>
           <%- include('partials/footer') %>
         </div>
       </div>
     </div>
     <%- include('partials/script') %>
+    <script id="user-list-error" type="text/x-jsrender">
+      <div class="alert alert-danger" role="alert">
+        An error has occured, cannot retrieve the users.
+      </div>
+    </script>
+    <script id="user-list" type="text/x-jsrender">
+      <table class="table table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Address</th>
+          <th class="hide">Photo</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{for users}}
+        <tr>
+          <td>{{:id}}</td>
+          <td>{{:name}}</td>
+          <td>{{:company}}</td>
+          <td>{{:address}}</td>
+          <td class="hide"><img src="{{:picture}}" title="{{:name}}" width="100" height="100" /></td>
+        </tr>
+      {{/for}}
+      </tbody>
+      </table>
+    </script>
+
+  <script>
+    var html = null;
+    $.get( '/user-page/api', function( data ) {
+      var tmpl = $.templates('#user-list');
+      html = tmpl.render({ users: data });
+    }).fail(function() {
+      var tmplError = $.templates('#user-list-error');
+      html = tmplError.render();
+    }).always(function() {
+      $('#result').html(html);
+    });
+  </script>
  </body>
  </html>

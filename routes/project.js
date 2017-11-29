@@ -4,7 +4,6 @@ var jSocket = require('json-socket');
 var router = express.Router();
 var request = require('request');
 
-
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
   console.log('Time: ', Date.now())
@@ -12,12 +11,15 @@ router.use(function timeLog (req, res, next) {
 })
 // define the home page route
 router.get('/', function (req, res) {
-  res.send('Project home page')
-})
+  res.render('project-page');
+});
 
 // api routes
 router.get('/api', function (req, res) {
-  getResponseFromSocket();
+  var USER_SERVICE_URI = 'http://localhost:9002/';
+  request.get({url:USER_SERVICE_URI, json:true}, function (error, response, projects) {
+    res.status(200).json(projects);
+  });
 });
 
 function getResponseFromSocket(res) {

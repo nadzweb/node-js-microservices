@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+ <%- include('partials/html-head') %>
+ <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <%- include('partials/top-nav') %>
+          <main role="main" class="inner cover">
+            <h3>Projects</h3>
+            <div>This data is coming from the URI, <strong>/project-page/api</strong> which is a microservice running at <strong>http://localhost:9002/</strong> </div>
+            <br/><br/>
+            <div id="result"></div>
+          </main>
+          <%- include('partials/footer') %>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/script') %>
+    <script id="project-list-error" type="text/x-jsrender">
+      <div class="alert alert-danger" role="alert">
+        An error has occured, cannot retrieve the projects
+      </div>
+    </script>
+    <script id="project-list" type="text/x-jsrender">
+      <table class="table table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{for project}}
+        <tr>
+          <td>{{:id}}</td>
+          <td>{{:projectTitle}}</td>
+          <td>{{:address}}</td>
+        </tr>
+      {{/for}}
+      </tbody>
+      </table>
+    </script>
+
+  <script>
+    var html = null;
+    $.get( '/project-page/api', function( data ) {
+      var tmpl = $.templates('#project-list');
+      html = tmpl.render({ projects: data });
+    }).fail(function() {
+      var tmplError = $.templates('#project-list-error');
+      html = tmplError.render();
+    }).always(function() {
+      $('#result').html(html);
+    });
+  </script>
+ </body>
+ </html>
