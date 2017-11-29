@@ -12,7 +12,9 @@
   "author": "nadzweb.com",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "json-socket": "^0.3.0",
     "request": "^2.83.0"
   },
   "devDependencies": {

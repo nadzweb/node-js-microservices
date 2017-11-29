@@ -2,8 +2,6 @@ var express = require('express')
 var router = express.Router();
 var request = require('request');
 
-
-
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
   console.log('Time: ', Date.now())
@@ -11,12 +9,9 @@ router.use(function timeLog (req, res, next) {
 })
 // define the home page route
 router.get('/', function (req, res) {
-  res.render('user-page');
+  console.log('her');
+  res.render('home-page');
 })
-// define the about route
-router.get('/about', function (req, res) {
-  res.send('About User')
-});
 
 // api routes
 router.get('/api', function (req, res) {
