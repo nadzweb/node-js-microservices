@@ -16,6 +16,7 @@ router.get('/', function (req, res) {
 router.get('/api', function (req, res) {
   var USER_SERVICE_URI = 'http://localhost:9001/';
   request.get({url:USER_SERVICE_URI, json:true}, function (error, response, users) {
+  	console.log('res', res);
     res.status(200).json(users);
   });
 });

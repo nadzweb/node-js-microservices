@@ -3,7 +3,7 @@ var app = express();
 
 var usersLogger = function (req, res, next) {
   var today = new Date();
-  console.log('USERS_LOGGER at');
+  console.log('USERS_LOGGER at ' + today.toISOString());
 };
 
 app.use(usersLogger);
@@ -14,3 +14,4 @@ app.get('/', function (req, res) {
 });
 
 app.listen(9001);
+console.log('User service is running at http://localhost:9001');

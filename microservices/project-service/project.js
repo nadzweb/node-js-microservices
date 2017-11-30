@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 
 var projectsLogger = function (req, res, next) {
-  console.log('PROJECTS_LOGGER');
+  var today = new Date();
+  console.log('PROJECTS_LOGGER at ' + today.toISOString());
   next();
 }
 
@@ -14,3 +15,4 @@ app.get('/', function (req, res) {
 })
 
 app.listen(9002);
+console.log('Project service is running at http://localhost:9002');

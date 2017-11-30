@@ -16,8 +16,8 @@ router.get('/', function (req, res) {
 
 // api routes
 router.get('/api', function (req, res) {
-  var USER_SERVICE_URI = 'http://localhost:9002/';
-  request.get({url:USER_SERVICE_URI, json:true}, function (error, response, projects) {
+  var PROJECT_SERVICE_URI = 'http://localhost:9002/';
+  request.get({url:PROJECT_SERVICE_URI, json:true}, function (error, response, projects) {
     res.status(200).json(projects);
   });
 });
